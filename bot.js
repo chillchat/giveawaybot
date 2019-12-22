@@ -53,7 +53,7 @@ function chooseWinner({ users, id, item }, msg) {
               title: "Giveaway Ended",
               fields: [
                 {
-                  name: `Choosing Winner (Rolls: ${i}/${iterations})`,
+                  name: `Choosing Winner (Rolls: ${i - 1}/${iterations})`,
                   value: user.toString()
                 }
               ]
