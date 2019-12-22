@@ -121,7 +121,27 @@ const commands = {
     const giveaway = giveaways.find(g => g.id === id);
     const channel = GiveawayBot.guilds.get("635632859998060554").channels.get(giveaway.channelID)
     const message = await channel.fetchMessage(giveaway.msgID)
-    // console.log(message.content)
+    if (giveaway.status !== "ended") {
+      const embed = new RichEmbed({
+        title: "Giveaway Ended",
+        fields: [
+          {
+            name: "Winner",
+            value: "Choosing Winner..."
+          }
+        ]
+      })
+      message.edit(embed)
+      chooseWinner(giveaway, message)
+      giveaway.status = "ended"
+      writeToJson()
+    }
+  },
+  reroll: async (msg, args) => {
+    const id = args[0]
+    const giveaway = giveaways.find(g => g.id === id);
+    const channel = GiveawayBot.guilds.get("635632859998060554").channels.get(giveaway.channelID)
+    const message = await channel.fetchMessage(giveaway.msgID)
     const embed = new RichEmbed({
       title: "Giveaway Ended",
       fields: [
@@ -149,7 +169,9 @@ GiveawayBot.on("messageReactionAdd", (reaction, user) => {
   if (user.id === GiveawayBot.user.id) return;
   if (reaction.emoji.id !== config.emojiID) return;
   if (giveaway.users.includes(user)) return;
-  giveaway.users.push(user.id)
+  if (giveaway.status !== "ended") {
+    giveaway.users.push(user.id)
+  }
   writeToJson()
 })
 
@@ -157,7 +179,9 @@ GiveawayBot.on("messageReactionRemove", (reaction, user) => {
   let giveaway = giveaways.find(g => g.msgID === reaction.message.id)
   if (user.id === GiveawayBot.user.id) return;
   if (reaction.emoji.id !== config.emojiID) return;
-  giveaway.users = giveaway.users.filter(u => u !== user.id)
+  if (giveaway.status !== "ended") {
+    giveaway.users = giveaway.users.filter(u => u !== user.id)
+  }
   writeToJson()
 })
 

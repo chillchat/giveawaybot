@@ -17,5 +17,6 @@ module.exports = class Giveaway {
       }
     }
     this.users = []
+    this.status = "started"
   }
 }
