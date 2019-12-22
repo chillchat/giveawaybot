@@ -32,7 +32,7 @@ function chooseWinner({ users, id, item }, msg) {
         const u = users[j];
         user = GiveawayBot.users.get(u);
         if (user) {
-          if (i >= iterations) {
+          if ((i + 1) >= iterations) {
             const embed = new RichEmbed({
               title: "Giveaway Ended",
               fields: [
