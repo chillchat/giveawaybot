@@ -26,7 +26,7 @@ function chooseWinner({ users, id, item }, msg) {
   const iterations = Math.floor(Math.random() * 5) + 5
   let user
   let end = 0
-  for (let i = 0; i <= iterations; i++) {
+  for (let i = 0; i < iterations; i++) {
     for (let j = 0; j < users.length; j++) {
       setTimeout(() => {
         const u = users[j];
