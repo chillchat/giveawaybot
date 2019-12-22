@@ -25,10 +25,9 @@ function chooseWinner({ users, id, item }, msg) {
   shuffle(users)
   const iterations = Math.floor(Math.random() * 5) + 5
   let user
-  let end = 0
   for (let i = 0; i < iterations; i++) {
     for (let j = 0; j < users.length; j++) {
-      const timer = setTimeout(() => {
+      const timer = setTimeout(async () => {
         const u = users[j];
         user = GiveawayBot.users.get(u);
         if (user) {
@@ -47,7 +46,7 @@ function chooseWinner({ users, id, item }, msg) {
                 }
               ]
             }).setFooter(id)
-            msg.edit(embed).catch(console.log)
+            await msg.edit(embed).catch(console.log)
           } else {
             const embed = new RichEmbed({
               title: "Giveaway Ended",
@@ -58,7 +57,7 @@ function chooseWinner({ users, id, item }, msg) {
                 }
               ]
             }).setFooter(id)
-            msg.edit(embed).catch(console.log)
+            await msg.edit(embed).catch(console.log)
           }
         }
       }, i * 500)
