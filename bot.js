@@ -30,6 +30,7 @@ function chooseWinner({ users, id, item }, msg) {
       const timer = setTimeout(async () => {
         const u = users[j];
         user = GiveawayBot.users.get(u);
+        shuffle(users)
         if (user) {
           if ((i + 1) >= iterations) {
             clearTimeout(timer)
