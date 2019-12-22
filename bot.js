@@ -28,11 +28,12 @@ function chooseWinner({ users, id, item }, msg) {
   let end = 0
   for (let i = 0; i < iterations; i++) {
     for (let j = 0; j < users.length; j++) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         const u = users[j];
         user = GiveawayBot.users.get(u);
         if (user) {
           if ((i + 1) >= iterations) {
+            clearTimeout(timer)
             const embed = new RichEmbed({
               title: "Giveaway Ended",
               fields: [
